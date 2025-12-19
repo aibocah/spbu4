@@ -1,5 +1,5 @@
 
-import 'package:blue_thermal_printer/blue_thermal_printer.dart';
+import 'package:blue_thermal_printer_plus/blue_thermal_printer_plus.dart';
 import 'package:esc_pos_utils/esc_pos_utils.dart';
 import '../models/transaksi.dart';
 
