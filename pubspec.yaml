@@ -1,0 +1,18 @@
+
+name: pom_spbu
+description: POM SPBU Production App
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  intl: ^0.19.0
+  esc_pos_utils: ^1.1.0
+  blue_thermal_printer: ^1.2.3
+  printing: ^5.11.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+flutter:
+  uses-material-design: true
