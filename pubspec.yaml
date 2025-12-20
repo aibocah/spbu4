@@ -8,7 +8,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  blue_thermal_printer_plus: ^4.0.1
+  blue_thermal_printer_plus: ^0.0.7
   esc_pos_utils: ^1.1.0
 
 
