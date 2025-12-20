@@ -3,46 +3,52 @@ import 'package:esc_pos_utils/esc_pos_utils.dart';
 import '../models/transaksi.dart';
 
 class PrintService {
-final BlueThermalPrinterPlus printer = BlueThermalPrinterPlus();
-
-
+  static final BlueThermalPrinterPlus printer =
+      BlueThermalPrinterPlus.instance;
 
   static Future<void> printStruk(Transaksi t) async {
     final profile = await CapabilityProfile.load();
     final gen = Generator(PaperSize.mm58, profile);
 
     List<int> bytes = [];
+
     bytes += gen.text(
-  'PERTAMINA',
-  styles: PosStyles(
-    align: PosAlign.center,
-    bold: true,
-  ),
-);
+      'PERTAMINA',
+      align: PosAlign.center,
+      bold: true,
+    );
+
     bytes += gen.text(
-  'SPBU HM. SULCHAN',
-  styles: const PosStyles(align: PosAlign.center),
-);
+      'SPBU HM. SULCHAN',
+      align: PosAlign.center,
+    );
 
     bytes += gen.hr();
+
     bytes += gen.text('BBM     : ${t.bbm}');
     bytes += gen.text('Volume  : ${t.liter.toStringAsFixed(2)} L');
     bytes += gen.text('Total   : Rp ${t.total}');
     bytes += gen.hr();
+
     bytes += gen.text('CASH');
     bytes += gen.text('Plat: ${t.plat}');
     bytes += gen.hr();
-    bytes += gen.text('Subsidi BBM dari Pemerintah', 
-  styles: const PosStyles(align: PosAlign.center),
-);
+
+    bytes += gen.text(
+      'Subsidi BBM dari Pemerintah',
+      align: PosAlign.center,
+    );
+
     bytes += gen.cut();
 
+    // CONNECT PRINTER
     if (!(await printer.isConnected ?? false)) {
       final devices = await printer.getBondedDevices();
       if (devices.isNotEmpty) {
         await printer.connect(devices.first);
       }
     }
-    printer.writeBytes(bytes);
+
+    await printer.writeBytes(bytes);
   }
 }
